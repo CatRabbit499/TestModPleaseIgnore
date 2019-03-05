@@ -1,0 +1,56 @@
+[
+  {
+    "uuid": "2c9d87c8-64e7-3ca8-861e-e4a9ef3d93bc",
+    "name": "Player126",
+    "level": 4,
+    "bypassesPlayerLimit": false
+  },
+  {
+    "uuid": "2a1dbdad-4c67-3be9-94f7-29e916d930b4",
+    "name": "@a",
+    "level": 4,
+    "bypassesPlayerLimit": false
+  },
+  {
+    "uuid": "da29211b-63ed-3a06-9070-eefa49a44fc0",
+    "name": "@e",
+    "level": 4,
+    "bypassesPlayerLimit": false
+  },
+  {
+    "uuid": "7b26b166-2024-3cef-b53f-2da5c1068f35",
+    "name": "@p",
+    "level": 4,
+    "bypassesPlayerLimit": false
+  },
+  {
+    "uuid": "0fbf5581-7411-3cef-a8b2-2d7919ecaf6e",
+    "name": "Player11",
+    "level": 4,
+    "bypassesPlayerLimit": false
+  },
+  {
+    "uuid": "2e2bad62-fd9f-3bb5-a89e-b314a4f30e73",
+    "name": "Player77",
+    "level": 4,
+    "bypassesPlayerLimit": false
+  },
+  {
+    "uuid": "4aee401f-639e-3eed-a2fe-2b876770093d",
+    "name": "Player960",
+    "level": 4,
+    "bypassesPlayerLimit": false
+  },
+  {
+    "uuid": "671fc71d-f6cb-3d6a-91ee-4151a2cbcf9a",
+    "name": "Player848",
+    "level": 4,
+    "bypassesPlayerLimit": false
+  },
+  {
+    "uuid": "9bd3b5b5-2b26-3f14-8236-0cdd38b7c3b1",
+    "name": "Player747",
+    "level": 4,
+    "bypassesPlayerLimit": false
+  }
+]
