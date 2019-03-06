@@ -8,6 +8,7 @@ bin
 
 # idea
 out
+run/logs
 *.ipr
 *.iws
 *.iml

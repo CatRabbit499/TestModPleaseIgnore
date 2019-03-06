@@ -45,3 +45,7 @@
 [06Mar2019 10:14:00.660] [Client thread/WARN] [net.minecraft.client.GameSettings/]: Skipping bad option: lastServer:
 [06Mar2019 10:14:00.778] [Client thread/INFO] [com.mojang.text2speech.NarratorWindows/]: Narrator library for x64 successfully loaded
 [06Mar2019 10:14:01.056] [Realms Notification Availability checker #1/INFO] [com.mojang.realmsclient.client.RealmsClient/]: Could not authorize you against Realms server: Invalid session id
+[06Mar2019 10:17:10.274] [Client thread/INFO] [net.minecraft.client.Minecraft/]: Stopping!
+[06Mar2019 10:17:10.967] [Client thread/INFO] [net.minecraft.client.audio.SoundManager/]: SoundSystem shutting down...
+[06Mar2019 10:17:11.179] [Client thread/INFO] [net.minecraft.client.audio.SoundManager/]: SoundSystem Author: Paul Lamb, www.paulscode.com
+[06Mar2019 10:17:11.203] [Thread-4/FATAL] [net.minecraftforge.fml.packs.ModFileResourcePack/]: Failed to clean up tempdir C:\Users\CATRAB~1\AppData\Local\Temp\modpacktmp8760956310827357602
