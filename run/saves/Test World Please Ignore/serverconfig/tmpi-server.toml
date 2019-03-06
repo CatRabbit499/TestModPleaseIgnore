@@ -1,6 +1,0 @@
-
-#Server only settings, mostly logging options
-[server]
-	#Mod version running on the server...
-	test = 5.0
-
