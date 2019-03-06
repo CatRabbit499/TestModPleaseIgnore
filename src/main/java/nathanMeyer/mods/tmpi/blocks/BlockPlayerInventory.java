@@ -25,13 +25,14 @@ public class BlockPlayerInventory extends BlockBasic{
 	public void onInteract(PlayerInteractEvent event){
 		EntityPlayer player = event.getEntityPlayer();
 		onActivated(event.getWorld(),event.getPos(),event.getEntityPlayer(),event.getHand(),event.getFace(),event.getPos().getX(),event
-				.getPos().getY(),event.getPos().getZ());
+				.getPos()
+				.getY(),event.getPos().getZ());
 	}
 	
 	private void onActivated(World world,BlockPos blockPos,EntityPlayer player,EnumHand hand,EnumFacing facing,float hitX,float hitY,float hitZ){
 		if(!world.isRemote){
 			TestModPleaseIgnore.LOGGER.info("BlockPlayerInventory onBlockActivated");
-			GUIHandler.openInvseeGui((EntityPlayerMP) player,(EntityPlayerMP) player);
+			GUIHandler.openInvseeGui((EntityPlayerMP)player,(EntityPlayerMP)player);
 		}
 	}
 }

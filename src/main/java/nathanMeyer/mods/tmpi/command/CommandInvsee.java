@@ -40,9 +40,9 @@ public class CommandInvsee{
 	private static Logger LOGGER = TestModPleaseIgnore.LOGGER;
 	
 	public static void register(CommandDispatcher<CommandSource> dispatcher){
-		dispatcher.register(literal("invsee").executes(ctx->invsee(ctx.getSource(),ctx.getSource().asPlayer().getName().getString()))
-		                                     .then(argument("target",StringArgumentType.string())
-				                                     .executes(ctx->invsee(ctx.getSource(),StringArgumentType.getString(ctx,"target")))));
+		dispatcher.register(literal("invsee")
+				.executes(ctx->invsee(ctx.getSource(),ctx.getSource().asPlayer().getName().getString()))
+				.then(argument("target",StringArgumentType.string()).executes(ctx->invsee(ctx.getSource(),StringArgumentType.getString(ctx,"target")))));
 	}
 	
 	private static int invsee(CommandSource source,String name) throws CommandSyntaxException{
@@ -61,8 +61,7 @@ public class CommandInvsee{
 			EntityPlayerMP player = source.asPlayer();
 			if(name.matches("[0-9a-f]{8}-?[0-9a-f]{4}-?[0-5][0-9a-f]{3}-?[089ab][0-9a-f]{3}-?[0-9a-f]{12}")){
 				// UUID
-				source.sendFeedback(new TextComponentString(ChatFormatting.PREFIX + ChatFormatting
-						.info("Args[0] (" + name + ") matches UUID format. Validating...")),false);
+				source.sendFeedback(new TextComponentString(ChatFormatting.PREFIX + ChatFormatting.info("Args[0] (" + name + ") matches UUID format. Validating...")),false);
 				targetID = UUID.fromString(name);
 				switch(CommandInvsee.checkUUIDStatus(targetID,server)){
 				case EXISTS_ONLINE:{
@@ -71,8 +70,9 @@ public class CommandInvsee{
 				}
 				case EXISTS_OFFLINE:{
 					ChatUtils.respond(source,ChatFormatting.PREFIX + ChatFormatting.info("Exists Offline"));
-					SaveHandler saveHandler = (SaveHandler) Objects
-							.requireNonNull(DimensionManager.getWorld(server,DimensionType.OVERWORLD,false,false)).getSaveHandler();
+					SaveHandler saveHandler = (SaveHandler)Objects
+							.requireNonNull(DimensionManager.getWorld(server,DimensionType.OVERWORLD,false,false))
+							.getSaveHandler();
 					String[] dats = saveHandler.getPlayerNBTManager().getAvailablePlayerDat();
 					ArrayList<String> datlist = new ArrayList<String>(){{
 						addAll(Arrays.asList(dats));
@@ -121,8 +121,7 @@ public class CommandInvsee{
 			}
 			else{
 				// Username or garbage string
-				ChatUtils
-						.respond(source,ChatFormatting.PREFIX + ChatFormatting.info("Checking args[0] (" + name + ") for user matches..."));
+				ChatUtils.respond(source,ChatFormatting.PREFIX + ChatFormatting.info("Checking args[0] (" + name + ") for user matches..."));
 				targetUser = name;
 				switch(checkUserStatus(targetUser,server)){
 				case EXISTS_ONLINE:{

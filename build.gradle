@@ -1,35 +1,35 @@
 buildscript{
     repositories{
-        maven{ url = 'https://files.minecraftforge.net/maven' }
+        maven{url='https://files.minecraftforge.net/maven'}
         jcenter()
         mavenCentral()
     }
     dependencies{
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group:'net.minecraftforge.gradle',name:'ForgeGradle',version:'3.+',changing:true
     }
 }
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
+apply plugin:'net.minecraftforge.gradle'
+apply plugin:'eclipse'
 
-version = "1.13.2-1.0"
-group = 'nathanMeyer.mods.tmpi'
-archivesBaseName = 'TestModPleaseIgnore'
+version="1.13.2-1.0"
+group='nathanMeyer.mods.tmpi'
+archivesBaseName='TestModPleaseIgnore'
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+sourceCompatibility=targetCompatibility=compileJava.sourceCompatibility=compileJava.targetCompatibility='1.8'
 
 minecraft{
-    mappings channel: 'snapshot', version: '20180921-1.13'
-    accessTransformer = file("$rootDir/src/main/resources/META-INF/TMPI_at.cfg")
+    mappings channel:'snapshot',version:'20180921-1.13'
+    accessTransformer=file("$rootDir/src/main/resources/META-INF/TMPI_at.cfg")
     runs{
-        client = {
-            properties 'forge.logging.markers': 'SCAN,REGISTRIES,REGISTRYDUMP'
-            properties 'forge.logging.console.level': 'debug'
+        client={
+            properties 'forge.logging.markers':'SCAN,REGISTRIES,REGISTRYDUMP'
+            properties 'forge.logging.console.level':'debug'
             workingDirectory project.file('run').canonicalPath
             source sourceSets.main
         }
-        server = {
-            properties 'forge.logging.markers': 'SCAN,REGISTRIES,REGISTRYDUMP'
-            properties 'forge.logging.console.level': 'debug'
+        server={
+            properties 'forge.logging.markers':'SCAN,REGISTRIES,REGISTRYDUMP'
+            properties 'forge.logging.console.level':'debug'
             workingDirectory project.file('run').canonicalPath
             source sourceSets.main
         }
@@ -43,13 +43,13 @@ dependencies{
 jar{
     manifest{
         attributes([
-            "Specification-Title": "tmpi",
-            "Specification-Vendor": "nathanmeyer",
-            "Specification-Version": "25.0",
-            "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"nathanmeyer",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                "Specification-Title"     :"tmpi",
+                "Specification-Vendor"    :"nathanmeyer",
+                "Specification-Version"   :"25.0",
+                "Implementation-Title"    :project.name,
+                "Implementation-Version"  :"${version}",
+                "Implementation-Vendor"   :"nathanmeyer",
+                "Implementation-Timestamp":new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ],)
     }
 }

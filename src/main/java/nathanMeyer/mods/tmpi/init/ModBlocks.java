@@ -26,9 +26,11 @@ public class ModBlocks{
 	
 	@SubscribeEvent
 	public static void registerItemBlocks(RegistryEvent.Register<Item> event){
-		event.getRegistry()
-		     .registerAll(new ItemBlock(invBlock,new Item.Properties().addToolType(ToolType.PICKAXE,2).group(ModItems.tabTMPI))
-				     .setRegistryName("tmpi","inv_block"));
+		event
+				.getRegistry()
+				.registerAll(new ItemBlock(invBlock,new Item.Properties()
+						.addToolType(ToolType.PICKAXE,2)
+						.group(ModItems.tabTMPI)).setRegistryName("tmpi","inv_block"));
 	}
 	
 	@SubscribeEvent

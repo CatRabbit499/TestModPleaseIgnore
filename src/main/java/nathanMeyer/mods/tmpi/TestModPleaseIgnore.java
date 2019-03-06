@@ -79,15 +79,6 @@ public class TestModPleaseIgnore{
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 	
-	public static void loadConfig(ForgeConfigSpec spec,Path path){
-		TestModPleaseIgnore.LOGGER.debug("Loading config file {}",path);
-		final CommentedFileConfig configData = CommentedFileConfig.builder(path).sync().autosave().writingMode(WritingMode.REPLACE).build();
-		TestModPleaseIgnore.LOGGER.debug("Built TOML config for {}",path.toString());
-		configData.load();
-		TestModPleaseIgnore.LOGGER.debug("Loaded TOML config file {}",path.toString());
-		spec.setConfig(configData);
-	}
-	
 	private void setup(final FMLCommonSetupEvent event){
 		LOGGER.info("Main setup()");
 		System.out.println(TMPIConfig.SERVER.modVersion.get());
@@ -113,6 +104,15 @@ public class TestModPleaseIgnore{
 	private void doClientStuff(final FMLClientSetupEvent event){
 		LOGGER.info("Main doClientStuff()");
 		PROXY.doClientStuff(event);
+	}
+	
+	public static void loadConfig(ForgeConfigSpec spec,Path path){
+		TestModPleaseIgnore.LOGGER.debug("Loading config file {}",path);
+		final CommentedFileConfig configData = CommentedFileConfig.builder(path).sync().autosave().writingMode(WritingMode.REPLACE).build();
+		TestModPleaseIgnore.LOGGER.debug("Built TOML config for {}",path.toString());
+		configData.load();
+		TestModPleaseIgnore.LOGGER.debug("Loaded TOML config file {}",path.toString());
+		spec.setConfig(configData);
 	}
 	
 	public static TestModPleaseIgnore getInstance(){

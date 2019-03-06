@@ -39,8 +39,9 @@ public class CommandSound{
 						ChatUtils.respond(source,ChatFormatting.PREFIX + ChatFormatting.valid("Reload Complete"));
 					}
 					catch(Exception e){
-						ChatUtils.respond(source,ChatFormatting.PREFIX + ChatFormatting
-								.error("Error In Feedback Thread: ",e.getClass().getName()));
+						ChatUtils.respond(source,ChatFormatting.PREFIX + ChatFormatting.error("Error In Feedback Thread: ",e
+								.getClass()
+								.getName()));
 						TestModPleaseIgnore.LOGGER.error(e);
 						TestModPleaseIgnore.LOGGER.error(e.fillInStackTrace());
 					}

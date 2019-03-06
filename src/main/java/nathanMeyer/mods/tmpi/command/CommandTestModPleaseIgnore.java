@@ -12,8 +12,9 @@ import static net.minecraft.command.Commands.literal;
 
 public class CommandTestModPleaseIgnore{
 	public static int register(CommandDispatcher<CommandSource> dispatcher){
-		dispatcher.register(literal("tmpi").then(literal("reload").executes(ctx->testModPleaseIgnore(ctx.getSource())))
-		                                   .executes(context->testModPleaseIgnore(context.getSource())));
+		dispatcher.register(literal("tmpi")
+				.then(literal("reload").executes(ctx->testModPleaseIgnore(ctx.getSource())))
+				.executes(context->testModPleaseIgnore(context.getSource())));
 		return 1;
 	}
 	

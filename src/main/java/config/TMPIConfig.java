@@ -13,18 +13,6 @@ import static net.minecraftforge.fml.Logging.CORE;
 @Mod.EventBusSubscriber
 public class TMPIConfig{
 	
-	@SubscribeEvent
-	public static void onLoad(final ModConfig.Loading configEvent){
-		TestModPleaseIgnore.LOGGER.debug("Loaded {} config file {}",TestModPleaseIgnore.MODID,configEvent.getConfig().getFileName());
-		
-	}
-	
-	@SubscribeEvent
-	public static void onFileChange(final ModConfig.ConfigReloading configEvent){
-		TestModPleaseIgnore.LOGGER.fatal(CORE,"{} config just got changed on the file system!",TestModPleaseIgnore.MODID);
-	}
-	
-	
 	public static final ForgeConfigSpec clientSpec;
 	public static final TMPIConfig.Client CLIENT;
 	public static final ForgeConfigSpec serverSpec;
@@ -48,6 +36,17 @@ public class TMPIConfig{
 		final Pair<TMPIConfig.Common,ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
 		commonSpec = specPair.getRight();
 		COMMON = specPair.getLeft();
+	}
+	
+	@SubscribeEvent
+	public static void onLoad(final ModConfig.Loading configEvent){
+		TestModPleaseIgnore.LOGGER.debug("Loaded {} config file {}",TestModPleaseIgnore.MODID,configEvent.getConfig().getFileName());
+		
+	}
+	
+	@SubscribeEvent
+	public static void onFileChange(final ModConfig.ConfigReloading configEvent){
+		TestModPleaseIgnore.LOGGER.fatal(CORE,"{} config just got changed on the file system!",TestModPleaseIgnore.MODID);
 	}
 	
 	public static class Server{

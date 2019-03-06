@@ -1,7 +1,9 @@
 {
   "variants": {
-    "normal": [
-      { "model": "tmpi:invblock" }
-    ]
+	"normal": [
+	  {
+		"model": "tmpi:invblock"
+	  }
+	]
   }
 }

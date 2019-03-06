@@ -14,21 +14,19 @@ public class CommandGamma{
 	public static final CommandGamma INSTANCE = new CommandGamma();
 	
 	public static void register(CommandDispatcher<CommandSource> dispatcher){
-		dispatcher.register(literal("gamma").then(argument("newGamma",FloatArgumentType.floatArg(0,1000))
-				.executes(ctx->setGamma(ctx.getSource(),FloatArgumentType.getFloat(ctx,"newGamma"))))
-		                                    .executes(ctx->getGamma(ctx.getSource())));
+		dispatcher.register(literal("gamma")
+				.then(argument("newGamma",FloatArgumentType.floatArg(0,1000)).executes(ctx->setGamma(ctx.getSource(),FloatArgumentType.getFloat(ctx,"newGamma"))))
+				.executes(ctx->getGamma(ctx.getSource())));
 	}
 	
 	private static int setGamma(CommandSource source,float amount){
 		Minecraft.getInstance().gameSettings.gammaSetting = amount;
-		ChatUtils.respond(source,ChatFormatting.PREFIX + ChatFormatting.valid("Gamma Updated: ") + Minecraft
-				.getInstance().gameSettings.gammaSetting);
+		ChatUtils.respond(source,ChatFormatting.PREFIX + ChatFormatting.valid("Gamma Updated: ") + Minecraft.getInstance().gameSettings.gammaSetting);
 		return 1;
 	}
 	
 	private static int getGamma(CommandSource source){
-		ChatUtils.respond(source,ChatFormatting.PREFIX + ChatFormatting.valid("Gamma: ") + Minecraft
-				.getInstance().gameSettings.gammaSetting);
+		ChatUtils.respond(source,ChatFormatting.PREFIX + ChatFormatting.valid("Gamma: ") + Minecraft.getInstance().gameSettings.gammaSetting);
 		return 1;
 	}
 }

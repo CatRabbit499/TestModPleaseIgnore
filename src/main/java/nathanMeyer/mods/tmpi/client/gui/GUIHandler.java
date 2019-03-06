@@ -104,7 +104,7 @@ public class GUIHandler{
 			try(
 					ByteArrayInputStream bais = new ByteArrayInputStream(stream);ObjectInputStream ois = new ObjectInputStream(bais)
 			){
-				playerMP = (EntityPlayerMP) ois.readObject();
+				playerMP = (EntityPlayerMP)ois.readObject();
 			}
 			catch(IOException|ClassNotFoundException e){
 				e.printStackTrace();
