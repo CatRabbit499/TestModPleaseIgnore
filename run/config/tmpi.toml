@@ -1,0 +1,17 @@
+
+#Common settings to both server and client
+[common]
+	#Example boolean config value
+	testBooleanOne = true
+	#Example long config value
+	showForgeVersion = 5
+	#Example integer config value
+	testIntegerOne = 5
+	#Example long config value
+	testDoubleOne = 1.0
+
+#test
+[test]
+	#comment
+	testBooleanTwo = true
+

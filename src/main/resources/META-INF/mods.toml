@@ -1,0 +1,32 @@
+modLoader="javafml"
+loaderVersion="[24,)"
+updateJSONURL="https://example.com/update.json"
+issueTrackerURL="https://example.com/issues"
+displayURL="https://example.com/"
+logoFile="TMPI.png"
+credits="Me, myself, and I"
+authors="CatRabbit499 / Nathan Meyer"
+
+[[mods]]
+modId="tmpi"
+version="${file.jarVersion}"
+displayName="Test Mod Please Ignore"
+description='''
+A collection of random but useful features.
+
+Mostly features ideas that should have been in MC to begin with,
+but the scope is not limited to such quark-like functions.
+'''
+
+[[dependencies.tmpi]]
+    modId="forge"
+    mandatory=true
+    versionRange="[24,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.tmpi]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.13,)"
+    ordering="NONE"
+    side="BOTH"

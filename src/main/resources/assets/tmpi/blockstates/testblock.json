@@ -1,7 +1,14 @@
 {
   "variants": {
-    "normal": [
-      { "model": "tmpi:testblock" }
-    ]
+	"": [
+	  {
+		"model": "tmpi:testblock"
+	  }
+	],
+	"activated": [
+	  {
+		"model": "tmpi:testblock"
+	  }
+	]
   }
 }

@@ -1,0 +1,6 @@
+{
+  "tile.testBlock.name": "Test Block",
+  "item.testItem.name": "Test Item",
+  "itemGroup.tab_tmpi": "TMPI",
+  "tmpi.gui.invself": "Inventory"
+}
