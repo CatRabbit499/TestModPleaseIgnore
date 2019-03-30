@@ -1,6 +1,6 @@
 package nathanMeyer.mods.tmpi.client.gui.inventory;
 
-import nathanMeyer.mods.tmpi.constants.DecimalColors;
+import nathanMeyer.mods.tmpi.util.GLColors;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
@@ -29,8 +29,8 @@ public class GUIInvsee extends GuiContainer{
 		if(remotePlayerName!=null && !remotePlayerName.equalsIgnoreCase(localname)){
 			localname = this.getRemotePlayerName();
 		}
-		this.fontRenderer.drawString(localname,7,-10,DecimalColors.DARK_GREEN.decimal);
-		this.fontRenderer.drawString(I18n.format("tmpi.gui.invself"),7,84,DecimalColors.DARK_GRAY.decimal);
+		this.fontRenderer.drawString(localname,7,-10,GLColors.DARK_GREEN.decimal);
+		this.fontRenderer.drawString(I18n.format("tmpi.gui.invself"),7,84,GLColors.DARK_GRAY.decimal);
 		remotePlayerName = null;
 	}
 	

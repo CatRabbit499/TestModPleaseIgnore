@@ -2,7 +2,7 @@ package nathanMeyer.mods.tmpi.client.gui;
 
 import nathanMeyer.mods.tmpi.client.gui.inventory.ContainerInvsee;
 import nathanMeyer.mods.tmpi.client.gui.inventory.GUIInvsee;
-import nathanMeyer.mods.tmpi.constants.LocationManager;
+import nathanMeyer.mods.tmpi.util.LocationManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;

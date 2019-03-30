@@ -2,7 +2,7 @@ package nathanMeyer.mods.tmpi.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import nathanMeyer.mods.tmpi.TestModPleaseIgnore;
-import nathanMeyer.mods.tmpi.constants.ChatFormatting;
+import nathanMeyer.mods.tmpi.util.ChatUtils.ChatFormatting;
 import nathanMeyer.mods.tmpi.util.ChatUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundManager;
@@ -39,9 +39,9 @@ public class CommandSound{
 						ChatUtils.respond(source,ChatFormatting.PREFIX + ChatFormatting.valid("Reload Complete"));
 					}
 					catch(Exception e){
-						ChatUtils.respond(source,ChatFormatting.PREFIX + ChatFormatting.error("Error In Feedback Thread: ",e
-								.getClass()
-								.getName()));
+						ChatUtils.respond(source,
+								ChatFormatting.PREFIX + ChatFormatting.error("Error In Feedback Thread: ",e.getClass().getName())
+						);
 						TestModPleaseIgnore.LOGGER.error(e);
 						TestModPleaseIgnore.LOGGER.error(e.fillInStackTrace());
 					}

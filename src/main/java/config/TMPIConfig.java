@@ -1,5 +1,6 @@
 package config;
 
+import com.google.common.collect.Lists;
 import nathanMeyer.mods.tmpi.TestModPleaseIgnore;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.*;
@@ -12,25 +13,8 @@ import static net.minecraftforge.fml.Logging.CORE;
 
 @Mod.EventBusSubscriber
 public class TMPIConfig{
-	
-	public static final ForgeConfigSpec clientSpec;
-	public static final TMPIConfig.Client CLIENT;
-	public static final ForgeConfigSpec serverSpec;
-	public static final TMPIConfig.Server SERVER;
 	public static final ForgeConfigSpec commonSpec;
 	public static final TMPIConfig.Common COMMON;
-	
-	static{
-		final Pair<Client,ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
-		clientSpec = specPair.getRight();
-		CLIENT = specPair.getLeft();
-	}
-	
-	static{
-		final Pair<TMPIConfig.Server,ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Server::new);
-		serverSpec = specPair.getRight();
-		SERVER = specPair.getLeft();
-	}
 	
 	static{
 		final Pair<TMPIConfig.Common,ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
@@ -54,35 +38,23 @@ public class TMPIConfig{
 		
 		Server(ForgeConfigSpec.Builder builder){
 			builder.comment("Server only settings, mostly logging options").push("server");
-			modVersion = builder.comment("Mod version running on the server...").translation("lol").defineInRange("test",5.0,0,5);
+			modVersion = builder
+					.comment("Mod version running on the server...")
+					.translation("tmpi.config.server.modVersion")
+					.defineInRange("modVersion",5.0,0,5);
 			builder.pop();
 		}
 	}
 	
 	public static class Client{
-		public final BooleanValue titleScreenMCVersion;
-		public final BooleanValue titleScreenMCP;
-		public final BooleanValue titleScreenForge;
-		public final BooleanValue titleScreenMods;
+		public final BooleanValue testClientSettingOne;
 		
 		Client(ForgeConfigSpec.Builder builder){
 			builder.comment("Client only settings").push("client");
-			this.titleScreenMCVersion = builder
-					.comment("Show which version of Minecraft the client is currently running.")
-					.translation("tmpi.config_client.mcversion")
-					.define("showMcVersion",true);
-			this.titleScreenMCP = builder
-					.comment("Show which version of Minecraft Coder Pack (MCP) the client is running.")
-					.translation("bettertitlescreen.configgui.mcpVersion")
-					.define("showMcpVersion",false);
-			this.titleScreenForge = builder
-					.comment("Show which version of Minecraft Forge the client is running.")
-					.translation("bettertitlescreen.configgui.forgeVersion")
-					.define("showForgeVersion",false);
-			this.titleScreenMods = builder
-					.comment("Show how many mods are loaded.")
-					.translation("bettertitlescreen.configgui.modsLoaded")
-					.define("showModsLoaded",false);
+			this.testClientSettingOne = builder
+					.comment("Example boolean client setting")
+					.translation("tmpi.config.client.testClientSettingOne")
+					.define("testClientSettingOne",true);
 			builder.pop();
 		}
 	}
@@ -92,10 +64,11 @@ public class TMPIConfig{
 		public final IntValue testIntegerOne;
 		public final LongValue testLongOne;
 		public final DoubleValue testDoubleOne;
-		
-		public final BooleanValue testBooleanTwo;
+		public final ConfigValue<?> testListOne;
 		
 		Common(Builder builder){
+			new Client(builder);
+			new Server(builder);
 			builder.comment("Common settings to both server and client").push("common");
 			testBooleanOne = builder
 					.comment("Example boolean config value")
@@ -108,15 +81,16 @@ public class TMPIConfig{
 			testLongOne = builder
 					.comment("Example long config value")
 					.translation("tmpi.config.testLongOne")
-					.defineInRange("showForgeVersion",5L,0L,10L);
+					.defineInRange("testLongOne",5L,0L,10L);
 			testDoubleOne = builder
-					.comment("Example long config value")
+					.comment("Example double config value")
 					.translation("tmpi.config.testDoubleOne")
 					.defineInRange("testDoubleOne",1.0F,0.0F,10.0F);
-			builder.pop();
+			testListOne = builder
+					.comment("Example String list config value")
+					.translation("tmpi.config.testListOne")
+					.defineList("testList",Lists.newArrayList("one","two","three"),String.class::isInstance);
 			
-			builder.comment("test").push("test");
-			testBooleanTwo = builder.comment("comment").translation("langkey").define("testBooleanTwo",true);
 			builder.pop();
 		}
 	}

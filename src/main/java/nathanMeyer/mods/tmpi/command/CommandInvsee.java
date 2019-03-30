@@ -6,7 +6,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import nathanMeyer.mods.tmpi.TestModPleaseIgnore;
 import nathanMeyer.mods.tmpi.client.gui.GUIHandler;
-import nathanMeyer.mods.tmpi.constants.ChatFormatting;
+import nathanMeyer.mods.tmpi.util.ChatUtils.ChatFormatting;
 import nathanMeyer.mods.tmpi.util.ChatUtils;
 import net.minecraft.command.CommandSource;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -41,8 +41,9 @@ public class CommandInvsee{
 	
 	public static void register(CommandDispatcher<CommandSource> dispatcher){
 		dispatcher.register(literal("invsee")
-				.executes(ctx->invsee(ctx.getSource(),ctx.getSource().asPlayer().getName().getString()))
-				.then(argument("target",StringArgumentType.string()).executes(ctx->invsee(ctx.getSource(),StringArgumentType.getString(ctx,"target")))));
+			.executes(ctx->invsee(ctx.getSource(),ctx.getSource().asPlayer().getName().getString()))
+			.then(argument("target",StringArgumentType.string()).executes(
+				ctx->invsee(ctx.getSource(),StringArgumentType.getString(ctx,"target")))));
 	}
 	
 	private static int invsee(CommandSource source,String name) throws CommandSyntaxException{
@@ -61,7 +62,8 @@ public class CommandInvsee{
 			EntityPlayerMP player = source.asPlayer();
 			if(name.matches("[0-9a-f]{8}-?[0-9a-f]{4}-?[0-5][0-9a-f]{3}-?[089ab][0-9a-f]{3}-?[0-9a-f]{12}")){
 				// UUID
-				source.sendFeedback(new TextComponentString(ChatFormatting.PREFIX + ChatFormatting.info("Args[0] (" + name + ") matches UUID format. Validating...")),false);
+				source.sendFeedback(new TextComponentString(
+					ChatFormatting.PREFIX + ChatFormatting.info("Args[0] (" + name + ") matches UUID format. Validating...")),false);
 				targetID = UUID.fromString(name);
 				switch(CommandInvsee.checkUUIDStatus(targetID,server)){
 				case EXISTS_ONLINE:{
@@ -71,8 +73,8 @@ public class CommandInvsee{
 				case EXISTS_OFFLINE:{
 					ChatUtils.respond(source,ChatFormatting.PREFIX + ChatFormatting.info("Exists Offline"));
 					SaveHandler saveHandler = (SaveHandler)Objects
-							.requireNonNull(DimensionManager.getWorld(server,DimensionType.OVERWORLD,false,false))
-							.getSaveHandler();
+						.requireNonNull(DimensionManager.getWorld(server,DimensionType.OVERWORLD,false,false))
+						.getSaveHandler();
 					String[] dats = saveHandler.getPlayerNBTManager().getAvailablePlayerDat();
 					ArrayList<String> datlist = new ArrayList<String>(){{
 						addAll(Arrays.asList(dats));
@@ -121,7 +123,9 @@ public class CommandInvsee{
 			}
 			else{
 				// Username or garbage string
-				ChatUtils.respond(source,ChatFormatting.PREFIX + ChatFormatting.info("Checking args[0] (" + name + ") for user matches..."));
+				ChatUtils.respond(source,
+					ChatFormatting.PREFIX + ChatFormatting.info("Checking args[0] (" + name + ") for user matches...")
+				);
 				targetUser = name;
 				switch(checkUserStatus(targetUser,server)){
 				case EXISTS_ONLINE:{
@@ -154,8 +158,10 @@ public class CommandInvsee{
 	}
 	
 	private static QueryStatus checkUserStatus(String query,MinecraftServer server){
-		if(Arrays.asList(server.getPlayerList().getOnlinePlayerNames()).contains(query)) return QueryStatus.EXISTS_ONLINE;
-		if(server.getPlayerProfileCache().getGameProfileForUsername(query)!=null) return QueryStatus.EXISTS_OFFLINE;
+		if(Arrays.asList(server.getPlayerList().getOnlinePlayerNames()).contains(query))
+			return QueryStatus.EXISTS_ONLINE;
+		if(server.getPlayerProfileCache().getGameProfileForUsername(query)!=null)
+			return QueryStatus.EXISTS_OFFLINE;
 		return QueryStatus.NON_EXISTANT;
 	}
 	

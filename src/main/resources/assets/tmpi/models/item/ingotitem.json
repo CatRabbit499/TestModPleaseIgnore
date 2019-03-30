@@ -1,7 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-	"layer0": "tmpi:items/testitem"
+	"layer0": "tmpi:items/ingotitem"
   },
   "display": {
 	"thirdperson": {

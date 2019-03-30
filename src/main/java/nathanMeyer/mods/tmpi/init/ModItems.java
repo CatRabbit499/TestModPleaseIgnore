@@ -1,22 +1,24 @@
 package nathanMeyer.mods.tmpi.init;
 
-import nathanMeyer.mods.tmpi.items.ItemBasic;
+import nathanMeyer.mods.tmpi.items.ItemBlockPlayerInventory;
+import nathanMeyer.mods.tmpi.items.ItemIngot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.common.ToolType;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.ObjectHolder;
 
-@EventBusSubscriber
 public class ModItems{
-	private static Item testItem;
+	@ObjectHolder("tmpi:ingotitem")
+	public static ItemIngot itemIngot;
+	
+	@ObjectHolder("tmpi:invblock")
+	public static ItemBlockPlayerInventory itemBlockPlayerInventory;
+	
 	public static final ItemGroup tabTMPI = new ItemGroup("tab_tmpi"){
 		@Override
 		public ItemStack createIcon(){
-			return new ItemStack(testItem);
+			return new ItemStack(itemIngot);
 		}
 		
 		@Override
@@ -25,21 +27,8 @@ public class ModItems{
 		}
 	}.setBackgroundImageName("item_search.png");
 	
-	public static void init(){
-		testItem = new ItemBasic("test_item",ModBlocks.invBlock,new Item.Properties().addToolType(ToolType.PICKAXE,1));
-	}
-	
-	@SubscribeEvent
-	public static void registerItems(RegistryEvent.Register<Item> event){
-		event.getRegistry().registerAll(testItem);
-	}
-	
-	@SubscribeEvent
-	public static void registerRenders(ModelRegistryEvent event){
-		registerRender(testItem);
-	}
-	
-	private static void registerRender(Item item){
-		//ModelLoader.defaultModelGetter().apply(new ModelResourceLocation(Objects.requireNonNull(item.getRegistryName()),"inventory"));
+	public static void registerItems(IForgeRegistry<Item> registry){
+		registry.register(new ItemBlockPlayerInventory(ModBlocks.invBlock,new Item.Properties().group(tabTMPI)).getItem());
+		registry.register(new ItemIngot());
 	}
 }

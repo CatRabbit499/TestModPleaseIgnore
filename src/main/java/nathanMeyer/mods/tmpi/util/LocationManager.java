@@ -1,4 +1,4 @@
-package nathanMeyer.mods.tmpi.constants;
+package nathanMeyer.mods.tmpi.util;
 
 import nathanMeyer.mods.tmpi.TestModPleaseIgnore;
 import net.minecraft.util.ResourceLocation;
