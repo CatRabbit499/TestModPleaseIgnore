@@ -1,19 +1,39 @@
 package nathanMeyer.mods.tmpi.proxy;
 
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import nathanMeyer.mods.tmpi.init.ModBlocks;
+import nathanMeyer.mods.tmpi.init.ModItems;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+
+import static nathanMeyer.mods.tmpi.TestModPleaseIgnore.LOGGER;
 
 public interface IProxy{
 	void setup(final FMLCommonSetupEvent event);
 	
-	void doClientStuff(final FMLClientSetupEvent event);
-	
-	void enqueueIMC(final InterModEnqueueEvent event);
-	
-	void processIMC(final InterModProcessEvent event);
-	
-	void serverStarting(final FMLServerStartingEvent event);
+	@EventBusSubscriber(bus = Bus.MOD)
+	class RegistryEvents{
+		@SubscribeEvent
+		public static void registerTiles(RegistryEvent.Register<TileEntityType<?>> event){
+			LOGGER.info("registerTiles({})",event);
+			ModBlocks.registerTiles(event.getRegistry());
+		}
+		
+		@SubscribeEvent
+		public static void registerBlocks(RegistryEvent.Register<Block> event){
+			LOGGER.info("registerBlocks({})",event);
+			ModBlocks.registerBlocks(event.getRegistry());
+		}
+		
+		@SubscribeEvent
+		public static void registerItems(RegistryEvent.Register<Item> event){
+			LOGGER.info("registerBlocks({})",event);
+			ModItems.registerItems(event.getRegistry());
+		}
+	}
 }
