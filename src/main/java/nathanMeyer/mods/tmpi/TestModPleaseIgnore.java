@@ -13,7 +13,7 @@ import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
@@ -35,7 +35,7 @@ public class TestModPleaseIgnore{
 	public TestModPleaseIgnore(){
 		FluidRegistry.enableUniversalBucket();
 		final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON,TMPIConfig.commonSpec,"tmpi.toml");
+		ModLoadingContext.get().registerConfig(Type.COMMON,TMPIConfig.commonSpec,"tmpi.toml");
 		modEventBus.addListener(this::setup);
 		modEventBus.addListener(this::enqueueIMC);
 		modEventBus.addListener(this::processIMC);
