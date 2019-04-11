@@ -40,7 +40,7 @@ public class TestModPleaseIgnore{
 		modEventBus.addListener(this::enqueueIMC);
 		modEventBus.addListener(this::processIMC);
 		modEventBus.addListener(this::doClientStuff);
-		ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.GUIFACTORY,()->GUIHandler.InvseeClient::getInvseeGui);
+		ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.GUIFACTORY,()->GUIHandler.InvseeClient::openGuiScreen);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 	

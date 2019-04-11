@@ -2,7 +2,7 @@ package nathanMeyer.mods.tmpi.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import nathanMeyer.mods.tmpi.util.ChatUtils.ChatFormatting;
+import nathanMeyer.mods.tmpi.util.Template;
 import nathanMeyer.mods.tmpi.util.ChatUtils;
 import net.minecraft.command.CommandSource;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -21,8 +21,7 @@ public class CommandTestModPleaseIgnore{
 	private static int tmpiMain(CommandSource source) throws CommandSyntaxException{
 		EntityPlayerMP player = source.asPlayer();
 		World world = player.getEntityWorld();
-		ChatUtils.respond(source,
-			ChatFormatting.PREFIX + (world.isRemote ? "§3Hello, §f" + player.getName() + "§3!" : "") + ChatFormatting.modinfo()
+		ChatUtils.respond(source,true,(world.isRemote ? "§3Hello, §f" + player.getName() + "§3!" : "") + Template.modinfo()
 		);
 		return 1;
 	}
@@ -32,7 +31,7 @@ public class CommandTestModPleaseIgnore{
 	}
 	
 	private static int tmpiReload(CommandSource source){
-		ChatUtils.respond(source,ChatFormatting.PREFIX + ChatFormatting.info("Reload is not implemented yet :("));
+		ChatUtils.respond(source,true,Template.info("Reload is not implemented yet :("));
 		return 1;
 	}
 }

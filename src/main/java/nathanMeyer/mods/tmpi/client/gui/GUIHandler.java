@@ -1,10 +1,13 @@
 package nathanMeyer.mods.tmpi.client.gui;
 
+import mcp.MethodsReturnNonnullByDefault;
 import nathanMeyer.mods.tmpi.client.gui.inventory.ContainerInvsee;
 import nathanMeyer.mods.tmpi.client.gui.inventory.GUIInvsee;
+import nathanMeyer.mods.tmpi.util.ChatUtils;
 import nathanMeyer.mods.tmpi.util.LocationManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.command.CommandSource;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -16,12 +19,11 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IInteractionObject;
 import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.fml.network.NetworkHooks;
-import org.apache.commons.io.output.ByteArrayOutputStream;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+
+import static nathanMeyer.mods.tmpi.TestModPleaseIgnore.LOGGER;
 
 public class GUIHandler{
 	public static ResourceLocation GUI_INVSEE_RL = LocationManager.getLocation("invsee_rl");
@@ -31,6 +33,33 @@ public class GUIHandler{
 		NetworkHooks.openGui(sender,invseeServer,invseeServer::encode);
 	}
 	
+	public static class InvseeClient{
+		public static GuiScreen openGuiScreen(FMLPlayMessages.OpenContainer message){
+			ResourceLocation invID = message.getId();
+			LOGGER.info("openGuiScreen({})",invID);
+			if(invID.equals(GUI_INVSEE_RL)){
+				Minecraft mc = Minecraft.getInstance();
+				PacketBuffer data = message.getAdditionalData();
+				EntityPlayer sender = (EntityPlayer)mc.world.getWorld().getEntityByID(data.readInt());
+				EntityPlayer target = (EntityPlayer)mc.world.getWorld().getEntityByID(data.readInt());
+				assert sender!=null;
+				assert target!=null;
+				CommandSource source = sender.getCommandSource();
+				LOGGER.info("{}[{}] : {}[{}]",
+					sender.getClass().getName(),
+					sender.getScoreboardName(),
+					target.getClass().getName(),
+					target.getScoreboardName()
+				);
+				ChatUtils.respondf(true,source,"[Client] {}.openGuiScreen({})",sender.getName(),invID);
+				return new GUIInvsee(mc.player.inventory,target.inventory,mc.player);
+			}
+			return null;
+		}
+	}
+	
+	@MethodsReturnNonnullByDefault
+	@ParametersAreNonnullByDefault
 	public static class InvseeServer implements IInteractionObject{
 		private final EntityPlayerMP sender;
 		private final EntityPlayerMP other;
@@ -42,7 +71,9 @@ public class GUIHandler{
 		
 		@Override
 		public Container createContainer(InventoryPlayer playerInventory,EntityPlayer playerEntity){
-			return new ContainerInvsee(sender.inventory,other.inventory);
+			ChatUtils.respond(playerEntity.getCommandSource(),true,"[Server] createContainer(playerInventory,playerEntity)");
+			assert playerInventory.equals(sender.inventory) : playerInventory + "=/=" + sender.inventory;
+			return new ContainerInvsee(sender.inventory,other.inventory,sender);
 		}
 		
 		@Override
@@ -60,56 +91,15 @@ public class GUIHandler{
 			return false;
 		}
 		
+		@Nullable
 		@Override
 		public ITextComponent getCustomName(){
-			return null;
+			return new TextComponentString("Mr. Poopy Butthole");
 		}
 		
 		public void encode(PacketBuffer packetBuffer){
-			packetBuffer.writeBytes(toBytes(sender));
-			packetBuffer.writeBytes(toBytes(other));
-		}
-		
-		private byte[] toBytes(EntityPlayerMP playerMP){
-			byte[] stream = null;
-			try(
-					ByteArrayOutputStream baos = new ByteArrayOutputStream();ObjectOutputStream oos = new ObjectOutputStream(baos)
-			){
-				oos.writeObject(playerMP);
-				stream = baos.toByteArray();
-			}
-			catch(IOException e){
-				e.printStackTrace();
-			}
-			return stream;
-		}
-	}
-	
-	public static class InvseeClient{
-		public static GuiScreen getInvseeGui(FMLPlayMessages.OpenContainer message){
-			ResourceLocation invID = message.getId();
-			System.out.println("InvseeClient GUI Element: " + invID);
-			if(invID.equals(GUI_INVSEE_RL)){
-				Minecraft mc = Minecraft.getInstance();
-				PacketBuffer data = message.getAdditionalData();
-				EntityPlayerMP sender = fromBytes(data.readByteArray());
-				EntityPlayerMP target = fromBytes(data.readByteArray());
-				return new GUIInvsee(sender.inventory,target.inventory);
-			}
-			return null;
-		}
-		
-		private static EntityPlayerMP fromBytes(byte[] stream){
-			EntityPlayerMP playerMP = null;
-			try(
-					ByteArrayInputStream bais = new ByteArrayInputStream(stream);ObjectInputStream ois = new ObjectInputStream(bais)
-			){
-				playerMP = (EntityPlayerMP)ois.readObject();
-			}
-			catch(IOException|ClassNotFoundException e){
-				e.printStackTrace();
-			}
-			return playerMP;
+			packetBuffer.writeInt(sender.getEntity().getEntityId());
+			packetBuffer.writeInt(other.getEntity().getEntityId());
 		}
 	}
 }

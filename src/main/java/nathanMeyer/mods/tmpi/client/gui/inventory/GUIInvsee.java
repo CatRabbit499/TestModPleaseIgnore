@@ -1,19 +1,21 @@
 package nathanMeyer.mods.tmpi.client.gui.inventory;
 
 import nathanMeyer.mods.tmpi.util.GLColors;
+import nathanMeyer.mods.tmpi.util.LocationManager;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 
 public class GUIInvsee extends GuiContainer{
-	private static final ResourceLocation GUI_INVSEE_BG = new ResourceLocation("tmpi:textures/gui/invseegui.png");
+	private static final ResourceLocation GUI_INVSEE_BG = LocationManager.getLocation("textures/gui/invseegui.png");
 	public static String remotePlayerName;
-	String localname = "${Otherplayer}";
+	private String localname = "${Otherplayer}";
 	
-	public GUIInvsee(InventoryPlayer playerSenderInventory,InventoryPlayer playerTargetInventory){
-		super(new ContainerInvsee(playerSenderInventory,playerTargetInventory));
+	public GUIInvsee(IInventory playerSenderInventory,IInventory playerTargetInventory,EntityPlayer playerSender){
+		super(new ContainerInvsee(playerSenderInventory,playerTargetInventory,playerSender));
 	}
 	
 	@Override
